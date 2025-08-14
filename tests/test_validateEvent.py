@@ -12,11 +12,13 @@ API_URL = "http://127.0.0.1:8000/events"
 # Get path relative to this file
 events_file = Path(__file__).parent / "events.json"
 
+
 def func(x):
     """Normalize expected fail reason for comparison"""
     if x == "":
         return "missing required field"
     return x
+
 
 def format_validation_errors(errors):
     """Deduplicate and format validation errors for printing"""
@@ -36,6 +38,7 @@ def format_validation_errors(errors):
             messages.append(msg_str)
     return messages
 
+
 def validate_errors(errors, expected_fail_reasons):
     formatted_errors = format_validation_errors(errors)
     for reason in expected_fail_reasons:
@@ -47,6 +50,7 @@ def validate_errors(errors, expected_fail_reasons):
             assert any(expected in err for err in formatted_errors), \
                 f"{RED}Expected fail reason '{expected}' not found in errors: {formatted_errors}{RESET}"
     return formatted_errors
+
 
 def test_post_events():
     with open(events_file, "r", encoding="utf-8") as f:
@@ -72,6 +76,7 @@ def test_post_events():
             print(f"{GREEN}✅ Event #{i} passed validation and created successfully.{RESET}")
 
         print("-" * 50)
+
 
 if __name__ == "__main__":
     test_post_events()

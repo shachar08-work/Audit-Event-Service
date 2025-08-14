@@ -16,7 +16,10 @@ import asyncio
 import json
 from datetime import datetime
 
+# ANSI escape codes for colors
 GREEN = "\033[92m"
+RED = "\033[91m"
+RESET = "\033[0m"
 
 STREAM_NAME = "audit_events"
 events_file = Path(__file__).parent / "valid_events.json"
@@ -63,7 +66,7 @@ async def main():
     count2 = await read_stream(redis_client)
 
     assert count2 == 20, f"Expected 20 events, got {count2}"
-    print(f"{GREEN}\n✅ Stream test passed!")
+    print(f"{GREEN}\n✅ Stream test passed!{RESET}")
 
 
 if __name__ == "__main__":

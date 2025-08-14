@@ -23,8 +23,10 @@ API_URL = "http://127.0.0.1:8000/events"
 NUM_WORKERS = 10
 events_file = Path(__file__).parent / "valid_events.json"
 
+# ANSI escape codes for colors
 GREEN = "\033[92m"
 RED = "\033[91m"
+RESET = "\033[0m"
 
 # Load events: flatten the outer list since each inner list contains one event
 with open(events_file, "r", encoding="utf-8") as f:
@@ -75,7 +77,7 @@ async def main():
     num_of_events = await get_num_of_events()
     assert (NUM_WORKERS*len(events)) == num_of_events, \
             f"{RED}Failed to create {NUM_WORKERS*len(events)} events with {NUM_WORKERS} threads!"
-    print(f"{GREEN}✅ Created {num_of_events} events with {NUM_WORKERS} threads successfully!")
+    print(f"{GREEN}✅ Created {num_of_events} events with {NUM_WORKERS} threads successfully!{RESET}")
     
 
 if __name__ == "__main__":
