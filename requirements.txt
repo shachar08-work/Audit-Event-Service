@@ -1,0 +1,12 @@
+fastapi
+uvicorn[standard]
+sqlalchemy
+asyncpg
+jsonschema
+apscheduler
+psycopg2-binary
+python-dotenv
+python-dateutil
+redis
+requests
+httpx

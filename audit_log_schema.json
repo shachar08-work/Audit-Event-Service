@@ -1,0 +1,127 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "RequestLog",
+  "type": "object",
+  "required": [
+    "logType",
+    "reportingService",
+    "logLevel",
+    "activityType",
+    "identityType",
+    "action",
+    "message",
+    "user",
+    "account"
+  ],
+  "properties": {
+    "time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The date and time the activity captured in UTC"
+    },
+    "logType": {
+      "type": "string",
+      "enum": ["Login", "System", "Management"],
+      "description": "Type of the log."
+    },
+    "reportingService": {
+      "type": "string",
+      "format": "uuid",
+      "description": "UUID provided by CX platform application/service reported the log"
+    },
+    "logLevel": {
+      "type": "string",
+      "enum": ["informational", "warning", "error"],
+      "description": "Original log level of the log event"
+    },
+    "activityType": {
+      "type": "string",
+      "maxLength": 50,
+      "description": "Short name describing the actual activity that captured"
+    },
+    "identityType": {
+      "type": "string",
+      "enum": ["User", "Application", "API Key"],
+      "description": "The type of entity performing the action"
+    },
+    "user": {
+      "type": "object",
+      "required": ["identityUuid"],
+      "properties": {
+        "identityUuid": {
+          "type": "string",
+          "description": "Unique identifier for the user."
+        },
+        "userEmail": {
+          "type": "string",
+          "description": "Email of the user."
+        },
+        "userFullName": {
+          "type": "string",
+          "description": "Full name of the user."
+        }
+      },
+      "description": "User information."
+    },
+    "action": {
+      "type": "string",
+      "enum": [
+        "Access",
+        "Approve",
+        "Create",
+        "Update",
+        "Delete",
+        "Deny",
+        "Execute",
+        "Notify",
+        "Revoke",
+        "Export"
+      ],
+      "description": "The specific action performed"
+    },
+    "message": {
+      "type": "string",
+      "maxLength": 512,
+      "description": "Full message including specific details such as failure reason, identifier of the item changed"
+    },
+    "ipAddress": {
+      "oneOf": [
+        {
+          "type": "string",
+          "format": "ipv4"
+        },
+        {
+          "type": "string",
+          "format": "ipv6"
+        }
+      ],
+      "description": "The IP address from where the action originated"
+    },
+    "errorCode": {
+      "type": "string",
+      "maxLength": 128,
+      "description": "Internal code that representing specific error type"
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Additional contextual information related to the event"
+    },
+    "account": {
+      "type": "object",
+      "required": ["accountId", "accountName"],
+      "properties": {
+        "accountId": {
+          "type": "string",
+          "description": "Identifier for the tenant."
+        },
+        "accountName": {
+          "type": "string",
+          "description": "Name of the tenant."
+        }
+      },
+      "description": "The account/tenant that this activity is related to"
+    }
+  },
+  "description": "Schema for application logs."
+}

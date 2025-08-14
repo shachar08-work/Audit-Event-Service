@@ -1,0 +1,217 @@
+[
+  [
+    {
+      "time": "2025-08-14T12:00:00.000000+00:00",
+      "logType": "Login",
+      "reportingService": "11111111-1111-1111-1111-111111111111",
+      "logLevel": "informational",
+      "activityType": "UserLogin",
+      "identityType": "User",
+      "user": {
+        "identityUuid": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+        "userEmail": "alice@example.com",
+        "userFullName": "Alice Example"
+      },
+      "action": "Access",
+      "message": "User logged in successfully",
+      "ipAddress": "192.168.1.100",
+      "errorCode": "",
+      "metadata": {
+        "device": "laptop",
+        "sessionDurationSeconds": 3600
+      },
+      "account": {
+        "accountId": "account-12345",
+        "accountName": "Example Corp"
+      }
+    },
+    {
+      "status": 201,
+      "fail_reason": []
+    }
+  ],
+  [
+    {
+      "time": "2025-08-14T12:10:00.000000+00:00",
+      "logType": "System",
+      "reportingService": "22222222-2222-2222-2222-222222222222",
+      "logLevel": "warning",
+      "activityType": "SystemUpdate",
+      "identityType": "Application",
+      "user": {
+        "identityUuid": "bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb"
+      },
+      "action": "Update",
+      "message": "Very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very long message",
+      "ipAddress": "10.0.0.1",
+      "errorCode": "",
+      "metadata": {},
+      "account": {
+        "accountId": "account-54321",
+        "accountName": "IT Corp"
+      }
+    },
+    {
+      "status": 400,
+      "fail_reason": ["message"]
+    }
+  ],
+  [
+    {
+      "time": "2025-08-14T12:20:00.000000+00:00",
+      "logLevel": "informational",
+      "activityType": "UserLogin",
+      "identityType": "User",
+      "user": {
+        "identityUuid": "cccccccc-cccc-cccc-cccc-cccccccccccc",
+        "userEmail": "bob@example.com"
+      },
+      "action": "Access",
+      "message": "Missing logType and reportingService",
+      "ipAddress": "192.168.1.101",
+      "errorCode": "",
+      "metadata": {},
+      "account": {
+        "accountId": "account-67890",
+        "accountName": "Example Org"
+      }
+    },
+    {
+      "status": 400,
+      "fail_reason": ["", ""]
+    }
+  ],
+  [
+    {
+      "time": "2025-08-14T12:30:00.000000+00:00",
+      "logType": "Login",
+      "reportingService": "33333333-3333-3333-3333-333333333333",
+      "logLevel": "informational",
+      "activityType": "UserLogin",
+      "identityType": "User",
+      "user": {},
+      "action": "Access",
+      "message": "User object empty",
+      "ipAddress": "192.168.1.102",
+      "errorCode": "",
+      "metadata": {},
+      "account": {
+        "accountId": "account-99999",
+        "accountName": "Test Corp"
+      }
+    },
+    {
+      "status": 400,
+      "fail_reason": ["user"]
+    }
+  ],
+  [
+    {
+      "time": "2025-08-14T12:40:00.000000+00:00",
+      "logType": "Management",
+      "reportingService": "44444444-4444-4444-4444-444444444444",
+      "logLevel": "error",
+      "activityType": "DeleteRecord",
+      "identityType": "API Key",
+      "user": {
+        "identityUuid": "dddddddd-dddd-dddd-dddd-dddddddddddd"
+      },
+      "action": "Delete",
+      "message": "Deleted sensitive record",
+      "ipAddress": "10.0.0.5",
+      "errorCode": "ERR001",
+      "metadata": {},
+      "account": {
+        "accountId": "account-55555",
+        "accountName": "Data Corp"
+      }
+    },
+    {
+      "status": 201,
+      "fail_reason": []
+    }
+  ],
+  [
+    {
+      "time": "2025-08-14T14:00:00.000000+00:00",
+      "logType": "InvalidType",
+      "reportingService": "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+      "logLevel": "informational",
+      "activityType": "UserLogin",
+      "identityType": "User",
+      "user": {
+        "identityUuid": "aaaa1111-aaaa-1111-aaaa-111111111111",
+        "userEmail": "hacker@example.com",
+        "userFullName": "Hacker Example"
+      },
+      "action": "Access",
+      "message": "Invalid logType value",
+      "ipAddress": "192.168.1.200",
+      "errorCode": "",
+      "metadata": {},
+      "account": {
+        "accountId": "account-hack1",
+        "accountName": "Hack Corp"
+      }
+    },
+    {
+      "status": 400,
+      "fail_reason": ["logType"]
+    }
+  ],
+  [
+    {
+      "time": "2025-08-14T14:10:00.000000+00:00",
+      "logType": "Login",
+      "reportingService": "bbbbbbbb-cccc-dddd-eeee-ffffffffffff",
+      "logLevel": "critical",
+      "activityType": "UserLogin",
+      "identityType": "User",
+      "user": {
+        "identityUuid": "bbbb1111-bbbb-1111-bbbb-111111111111",
+        "userEmail": "invalid@example.com",
+        "userFullName": "Invalid User"
+      },
+      "action": "Access",
+      "message": "Invalid logLevel",
+      "ipAddress": "192.168.1.201",
+      "errorCode": "",
+      "metadata": {},
+      "account": {
+        "accountId": "account-invalid",
+        "accountName": "Invalid Corp"
+      }
+    },
+    {
+      "status": 400,
+      "fail_reason": ["logLevel"]
+    }
+  ],
+  [
+    {
+      "time": "2025-08-14T14:20:00.000000+00:00",
+      "logType": "Login",
+      "reportingService": "cccccccc-dddd-eeee-ffff-111111111111",
+      "logLevel": "warning",
+      "activityType": "UserLogin",
+      "identityType": "User",
+      "user": {
+        "userEmail": "missinguuid@example.com",
+        "userFullName": "Missing UUID User"
+      },
+      "action": "Access",
+      "message": "User object missing identityUuid",
+      "ipAddress": "192.168.1.202",
+      "errorCode": "",
+      "metadata": {},
+      "account": {
+        "accountId": "account-missing",
+        "accountName": "Missing Corp"
+      }
+    },
+    {
+      "status": 400,
+      "fail_reason": ["user"]
+    }
+  ]
+]
