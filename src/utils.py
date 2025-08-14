@@ -31,15 +31,18 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SCHEMA_PATH = os.path.join(BASE_DIR, "audit_log_schema.json")
 with open(SCHEMA_PATH) as f:
     audit_schema = json.load(f)
-
 validator = Draft7Validator(audit_schema, format_checker=FormatChecker())
 
+
+# validate the event payload against the JSON schema
 def validate_payload_event(payload_event):
     errors = []
     for error in validator.iter_errors(payload_event):
         errors.append([list(error.path), str(error.message)])
     return len(errors) == 0, errors
 
+
+# delete events older than 3 years from the database
 async def delete_old_events():
     async with async_session() as session:
         cutoff = datetime.now(timezone.utc) - relativedelta(years=3)
@@ -47,6 +50,8 @@ async def delete_old_events():
         await session.execute(stmt)
         await session.commit()
 
+
+# schedule the old events cleanup job to run daily at 00:00 UTC
 def schedule_cleanup():
     scheduler = AsyncIOScheduler()
     scheduler.add_job(delete_old_events, 'cron', hour=0, minute=0, timezone='UTC')
@@ -54,7 +59,7 @@ def schedule_cleanup():
     print("Scheduler started. Cleanup runs every 24 hours at 00:00 UTC time.")
 
 
-# Synchronous table creation to ensure tables exist before app runs.
+# Synchronous table creation to ensure database table exist before the app runs (runs before the async engine is used)
 def init_tables_sync():
     while True:
         try:

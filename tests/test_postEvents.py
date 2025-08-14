@@ -8,15 +8,15 @@ from pathlib import Path
 import asyncio
 from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi import APIRouter, Request, Depends
+from sqlalchemy import text
+from sqlalchemy import delete
+from sqlalchemy import select
 
 # Add project root to path
 sys.path.append(str(Path(__file__).resolve().parent.parent))
 
 from src.database import async_session, get_db
 from src.models import Base, AuditEvent
-from sqlalchemy import text
-from sqlalchemy import delete
-from sqlalchemy import select
 
 
 API_URL = "http://127.0.0.1:8000/events"
@@ -25,12 +25,13 @@ events_file = Path(__file__).parent / "valid_events.json"
 
 GREEN = "\033[92m"
 RED = "\033[91m"
-RESET = "\033[0m"
 
 # Load events: flatten the outer list since each inner list contains one event
 with open(events_file, "r", encoding="utf-8") as f:
     raw_events = json.load(f)
 events = [inner[0] for inner in raw_events]  # get the actual event dicts
+
+
 
 async def post_event(client, event, worker_id, index):
     try:
@@ -40,10 +41,12 @@ async def post_event(client, event, worker_id, index):
     except Exception as e:
         print(f"[Worker {worker_id}] Event #{index} exception: {e}")
 
+
 async def worker(worker_id):
     async with httpx.AsyncClient() as client:
         for i, event in enumerate(events, start=1):
             await post_event(client, event, worker_id, i)
+
 
 async def delete_all_events():
     async with async_session() as session:
@@ -52,12 +55,14 @@ async def delete_all_events():
         await session.commit()
     print("All events deleted.")
 
+
 async def get_num_of_events():
     # Use async_session directly outside of FastAPI
     async with async_session() as session:
         result = await session.execute(select(AuditEvent).order_by(AuditEvent.ingestedat))
         events = result.scalars().all()
         return len(events)
+
 
 async def main():
     # Create NUM_WORKERS async workers

@@ -2,8 +2,10 @@ from sqlalchemy import Column, TIMESTAMP, JSON
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import declarative_base
 
+# base class we can inherit from to define database tables
 Base = declarative_base()
 
+# define the AuditEvent table model
 class AuditEvent(Base):
     __tablename__ = "audit_events_table"
 
